@@ -55,3 +55,10 @@ digitBtn.forEach(button => {
         updateDisplay();
     });
 });
+
+clearBtn.addEventListener('click', () => {
+    currentValue = '0';
+    updateDisplay();
+});
+
+
