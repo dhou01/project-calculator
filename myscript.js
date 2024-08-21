@@ -5,6 +5,7 @@ function add (a, b) {
 function subtract (a, b) {
     return a - b;
 }
+
 function multiply (a, b) {
     return a * b;
 }
@@ -29,3 +30,28 @@ function operate (operator, firstNumber, secondNumber) {
             return "Error, invalid operator";
     }
 }
+
+const displayValue = document.querySelector('#display-value');
+const digitBtn = document.querySelectorAll('.digit');
+const operatorBtn = document.querySelector('.operator');
+const clearBtn = document.querySelector('.clear')
+
+let currentValue = '0';
+
+function updateDisplay () {
+    displayValue.textContent = currentValue;
+}
+
+digitBtn.forEach(button => {
+    button.addEventListener('click', () => {
+        const digit = button.textContent;
+
+        if (currentValue === '0') {
+            currentValue = digit;
+        } else {
+            currentValue += digit;
+        }
+
+        updateDisplay();
+    });
+});
