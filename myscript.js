@@ -37,7 +37,7 @@ const displayValue = document.querySelector('#display-value');
 const digitBtn = document.querySelectorAll('.digit');
 const operatorBtn = document.querySelectorAll('.operator');
 const clearBtn = document.querySelector('.clear')
-//const equalBtn = document.querySelector('');
+const equalBtn = document.querySelector('.equals');
 
 
 
@@ -49,7 +49,7 @@ function updateDisplay () {
     if (currentOperator){
         displayValue.textContent = `${firstNumber} ${currentOperator} ${currentValue}`
     } else {
-        displayValue.text = currentValue;
+        displayValue.textContent = currentValue;
     }
 }
 
@@ -58,7 +58,7 @@ digitBtn.forEach(button => {
     button.addEventListener('click', () => {
         const digit = button.textContent;
 
-        if (currentValue === '0') {
+        if (currentValue === '') {
             currentValue = digit;
         } else {
             currentValue += digit;
@@ -94,7 +94,7 @@ operatorBtn.forEach(button => {
 });
 
 // Event listener for equals button
-clearBtn.addEventListener('click', () => {
+equalBtn.addEventListener('click', () => {
 
 });
 
