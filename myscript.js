@@ -48,7 +48,10 @@ const equalBtn = document.querySelector('.equals');
 function updateDisplay () {
     if (currentOperator){
         displayValue.textContent = `${firstNumber} ${currentOperator} ${currentValue}`
-    } else {
+    } else if (isNaN(currentValue)) {
+        displayValue.textContent = "Error";
+    }
+    else {
         displayValue.textContent = currentValue;
     }
 }
@@ -64,8 +67,6 @@ digitBtn.forEach(button => {
             currentValue += digit;
         }
 
-
-        
         updateDisplay();
     });
 });
@@ -73,29 +74,38 @@ digitBtn.forEach(button => {
 // Event listener for operator button
 operatorBtn.forEach(button => {
     button.addEventListener('click', () => {
+        //currentOperator = button.textContent;
 
-        if (firstNumber === '') {
-            firstNumber = parseFloat(currentValue);
-        } else if (currentOperator) {
-            secondNumber = parseFloat(currentValue);
-            //firstNumber = operate(currentOperator, firstNumber. secondNumber);
+        if (currentValue !== '') { 
+            currentOperator = button.textContent;
+
+            if (firstNumber === '') {
+                firstNumber = parseFloat(currentValue);
+            } else if (currentOperator) {
+                secondNumber = parseFloat(currentValue);
+                firstNumber = operate(currentOperator, firstNumber, secondNumber);
+            }
+    
+            currentValue = '';
+            updateDisplay();
         }
-
-        currentOperator = button.textContent;
-        currentValue = '0';
-        updateDisplay();
-
-        // if (currentOperator === '') {
-        //     currentOperator = operator;
-        // } else {
-        //     currentOperator += operator;
-        // }
     });
 });
 
 // Event listener for equals button
 equalBtn.addEventListener('click', () => {
+    if (currentOperator && firstNumber !== null) {
+        secondNumber = parseFloat(currentValue);
+        currentValue = operate(currentOperator, firstNumber, secondNumber).toString();
 
+        firstNumber = '';
+        secondNumber = '';
+        currentOperator = '';
+    
+    } else {
+        return "Error";
+    }
+    updateDisplay();
 });
 
 
@@ -104,7 +114,7 @@ clearBtn.addEventListener('click', () => {
     firstNumber = '';
     secondNumber= '';
     currentOperator = '';
-    currentValue = '0';
+    currentValue = '';
     updateDisplay();
 });
 
