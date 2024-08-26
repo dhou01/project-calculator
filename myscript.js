@@ -85,10 +85,14 @@ operatorBtn.forEach(button => {
                 secondNumber = parseFloat(currentValue);
                 firstNumber = operate(currentOperator, firstNumber, secondNumber);
             }
-    
+        }
+
+        if (firstNumber !== null) {
+            currentOperator = button.textContent;
+        }
+        
             currentValue = '';
             updateDisplay();
-        }
     });
 });
 
