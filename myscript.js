@@ -34,10 +34,13 @@ function operate (operator, firstNumber, secondNumber) {
 }
 
 const displayValue = document.querySelector('#display-value');
+const displayCurrentValue = document.querySelector('#display-current-value');
 const digitBtn = document.querySelectorAll('.digit');
 const operatorBtn = document.querySelectorAll('.operator');
 const clearBtn = document.querySelector('.clear')
 const equalBtn = document.querySelector('.equals');
+const dotBtn = document.querySelector('.decimal-dot');
+const delBtn = document.querySelector('.delete');
 
 
 
@@ -52,7 +55,8 @@ function updateDisplay () {
         displayValue.textContent = "Error";
     }
     else {
-        displayValue.textContent = currentValue;
+       displayValue.textContent = currentValue;
+        //displayCurrentValue.textContent = currentValue;
     }
 }
 
@@ -98,7 +102,7 @@ operatorBtn.forEach(button => {
 
 // Event listener for equals button
 equalBtn.addEventListener('click', () => {
-    if (currentOperator && firstNumber !== null) {
+    if (currentOperator && firstNumber && currentValue !== null) {
         secondNumber = parseFloat(currentValue);
         currentValue = operate(currentOperator, firstNumber, secondNumber).toString();
 
@@ -107,7 +111,12 @@ equalBtn.addEventListener('click', () => {
         currentOperator = '';
     
     } else {
-        return "Error";
+        firstNumber = '';
+        secondNumber = '';
+        currentOperator = '';
+        currentValue = '';
+        return
+        
     }
     updateDisplay();
 });
@@ -120,6 +129,14 @@ clearBtn.addEventListener('click', () => {
     currentOperator = '';
     currentValue = '';
     updateDisplay();
+});
+
+delBtn.addEventListener('click', () => {
+    if (displayValue.textContent.length === 1 || displayValue.textContent === "Error: cannot divide by zero") {
+        displayValue.textContent = "0";
+    } else {
+        displayValue.textContent = displayValue.textContent.slice(0, -1);
+    }
 });
 
 
